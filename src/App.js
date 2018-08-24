@@ -25,10 +25,14 @@ class App extends Component {
 
   //Component will mount is mostly for getting data before your component loads
   componentWillMount(){
+    this.getProducts();
+  }
+
+  getProducts(){
     const products = JSON.parse(localStorage.getItem('products'));
 
     this.setState({products}); //we have set the products as our products
-  } 
+  }
 
   render() {
     return (
