@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductItem from './ProductItem';
+import AddProduct from './AddProduct';
 import './App.css';
 
 const products = [
@@ -22,6 +23,7 @@ class App extends Component {
     this.state = {
       products: JSON.parse(localStorage.getItem('products'))  //products is being assigned from the data directly in the constructor
     };
+    this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }
 
@@ -43,11 +45,21 @@ class App extends Component {
     });
     this.setState({products: filteredProducts});
   }
-  //this has a self contained state with single products name and price
+
+  onAdd(name, price){ // function adds new products to the list
+    const products = this.getProducts();
+    products.push({name, price});
+    this.setState({products});
+  }
+
+  
   render() {
     return (
       <div className="App">
         <h1>My Products App</h1>
+
+        <AddProduct onAdd = {this.onAdd} />
+        
         {
           this.state.products.map (product => {
             return (
