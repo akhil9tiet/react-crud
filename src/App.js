@@ -22,18 +22,28 @@ class App extends Component {
     this.state = {
       products: []  //we initialize our products as empty array
     }
+    this.onDelete = this.onDelete.bind(this);
   }
 
   //Component will mount is mostly for getting data before your component loads
   componentWillMount(){
-    this.getProducts();
+    const products = this.getProducts();
+
+    this.setState({products});
   }
 
   getProducts(){
-    const products = JSON.parse(localStorage.getItem('products'));
+    return (JSON.parse(localStorage.getItem('products')));
     this.setState({products}); //we have set the products as our products
   }
 
+  onDelete(name){ //this is where the product will actually be deleted
+    const products = this.getProducts();
+    const filteredProducts = products.filter(product => {
+      return product.name !== name;
+    });
+    this.setState({products: filteredProducts});
+  }
   //this has a self contained state with single products name and price
   render() {
     return (
@@ -45,6 +55,7 @@ class App extends Component {
               <ProductItem 
                 key= {product.name}
                 {...product} //spread operator, passes all at once
+                onDelete={this.onDelete} // Pass the onDelete into our productItem component
                 />
             );
           })
