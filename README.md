@@ -4,7 +4,7 @@ Made with `create-react-app`
 
 Installation steps
 ```
-git clone {Placeholder}
+git clone https://github.com/akhil9tiet/react-crud.git
 ```
 
 Go to the folder in terminal where you cloned
