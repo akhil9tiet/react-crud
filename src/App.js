@@ -20,8 +20,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      products: []  //we initialize our products as empty array
-    }
+      products: JSON.parse(localStorage.getItem('products'))  //products is being assigned from the data directly in the constructor
+    };
     this.onDelete = this.onDelete.bind(this);
   }
 
@@ -33,8 +33,7 @@ class App extends Component {
   }
 
   getProducts(){
-    return (JSON.parse(localStorage.getItem('products')));
-    this.setState({products}); //we have set the products as our products
+    return (this.state.products);
   }
 
   onDelete(name){ //this is where the product will actually be deleted
