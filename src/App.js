@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProductItem from './ProductItem';
 import './App.css';
 
 const products = [
@@ -30,10 +31,10 @@ class App extends Component {
 
   getProducts(){
     const products = JSON.parse(localStorage.getItem('products'));
-
     this.setState({products}); //we have set the products as our products
   }
 
+  //this has a self contained state with single products name and price
   render() {
     return (
       <div className="App">
@@ -41,10 +42,10 @@ class App extends Component {
         {
           this.state.products.map (product => {
             return (
-              <div key = {product.name}>
-                <span>{product.name}</span> | $
-                <span>{product.price}</span>
-              </div>
+              <ProductItem 
+                key= {product.name}
+                {...product} //spread operator, passes all at once
+                />
             );
           })
         }
