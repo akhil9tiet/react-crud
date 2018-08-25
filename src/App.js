@@ -25,6 +25,8 @@ class App extends Component {
     };
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onEditSubmit = this.onEditSubmit.bind(this);
+  
   }
 
   //Component will mount is mostly for getting data before your component loads
@@ -52,6 +54,18 @@ class App extends Component {
     this.setState({products});
   }
 
+  onEditSubmit(name, price, orignalName){
+    let products = this.getProducts(); //as we are mutating the valiable that is why we have to use let
+    products = products.map(product => {
+      if (product.name === orignalName){
+        product.name = name;
+        product.price = price;
+      }
+      return product;
+    });
+    this.setState ({ products });
+  }
+
   
   render() {
     return (
@@ -66,7 +80,8 @@ class App extends Component {
               <ProductItem 
                 key= {product.name}
                 {...product} //spread operator, passes all at once
-                onDelete={this.onDelete} // Pass the onDelete into our productItem component
+                onDelete = {this.onDelete} // Pass the onDelete into our productItem component
+                onEditSubmit = {this.onEditSubmit}
                 />
             );
           })
